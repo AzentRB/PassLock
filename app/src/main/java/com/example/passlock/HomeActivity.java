@@ -87,6 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void refreshData(String usn) {
         Cursor cursor = DB.viewData(usn);
+        listEntity.clear();
         if (cursor.getCount() == 0)
         {
             Toast.makeText(this, "No Data to show", Toast.LENGTH_SHORT).show();
