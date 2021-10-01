@@ -1,5 +1,7 @@
 package com.example.passlock;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -26,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<String> listEntity;
     ArrayAdapter<String> adapter;
     ClipboardManager clipboard;
-    DBHelper DB = new DBHelper(this);
+    DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,11 @@ public class HomeActivity extends AppCompatActivity {
         elist = findViewById(R.id.listentity);
 
         listEntity = new ArrayList<>();
+        DB=new DBHelper(getApplicationContext());
 
         if(getIntent().getExtras() != null) {
             user_name = getIntent().getExtras().getString("username");
         }
-
-        viewData(user_name);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,23 +60,36 @@ public class HomeActivity extends AppCompatActivity {
         elist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(getApplicationContext(), copyPass.class);
-                intent.putExtra("username", user_name);
-                intent.putExtra("entity", listEntity.get(position));
-                startActivity(intent);
+                Cursor cursor=DB.get_decrypted(user_name,listEntity.get(position));
+                if (cursor.getCount() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "Error! Could not find data", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    cursor.moveToFirst();
+                    String pass = cursor.getString(2);
+                    clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    pass = AES.decrypt(pass,user_name);
+                    ClipData clip = ClipData.newPlainText("pass", pass);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(getApplicationContext(), "Password Copied", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData(user_name);
+    }
 
-
-    private void viewData(String usn) {
-        DBHelper DB = new DBHelper(this);
+    private void refreshData(String usn) {
         Cursor cursor = DB.viewData(usn);
         if (cursor.getCount() == 0)
         {
-            Toast.makeText(this, "No Data to show", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Data to show", Toast.LENGTH_SHORT).show();
         }
         else
         {
