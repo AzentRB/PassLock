@@ -1,8 +1,7 @@
 package com.example.passlock;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -50,18 +49,16 @@ public class AddActivity extends AppCompatActivity {
                         Boolean insert = DB.insert_data(ename,user_name, f_pass);
                         if (insert) {
                             Toast.makeText(AddActivity.this, "Entered Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                            intent.putExtra("username", user_name);
-                            startActivity(intent);
+                            onBackPressed();
                         }
                         else
                         {
-                            Toast.makeText(AddActivity.this, "GHJHGGJHGGJH", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddActivity.this, "Error inserting new data", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
                     {
-                        Toast.makeText(AddActivity.this, "poiweuqeiwopeiwoeiwpo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddActivity.this, "Authentication Error", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
