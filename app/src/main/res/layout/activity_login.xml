@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="304dp"
+        android:layout_height="112dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginRight="73dp"
+        android:src="@drawable/secure" />
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="325dp"
+        android:layout_marginRight="325dp"
+        android:src="@drawable/user" />
+
+    <EditText
+        android:id="@+id/username1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="200dp"
+        android:hint="User Name"
+        android:paddingLeft="15dp"
+        android:elevation="4dp"
+        android:background="@drawable/myrect"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="289dp"
+        android:layout_marginEnd="318dp"
+        android:layout_marginRight="318dp"
+        android:src="@drawable/password" />
+
+    <EditText
+        android:id="@+id/password1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/username1"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:paddingLeft="15dp"
+        android:elevation="4dp"
+        android:background="@drawable/myrect"/>
+
+    <Button
+        android:id="@+id/btnsignin1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password1"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/round_button"
+        android:text="Sign-in"
+        android:textColor="#FFFFFF" />
+</RelativeLayout>
